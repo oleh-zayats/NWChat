@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zSO-XJ-8NU">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Start Screen View Controller-->
+        <scene sceneID="hyt-TY-b1m">
+            <objects>
+                <viewController id="zSO-XJ-8NU" customClass="StartScreenViewController" customModule="NetworkFrameworkResearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uEm-i6-zEH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ez3-Go-lhu">
+                                <rect key="frame" x="20" y="597" width="235" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="3eH-tN-zyr"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i35-qo-Rq5">
+                                <rect key="frame" x="275" y="597" width="80" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="dUE-CI-SYW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
+                                <state key="normal" title="Connect">
+                                    <color key="titleColor" red="0.98823529409999999" green="0.30588235289999999" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="goButtonDidtouchUpInside:" destination="zSO-XJ-8NU" eventType="touchUpInside" id="NgV-Hn-BeM"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Port" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-YP-QOj">
+                                <rect key="frame" x="37.5" y="206" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="KxH-Nm-ve8"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="IP Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JFt-mU-jCI">
+                                <rect key="frame" x="37.5" y="152" width="300" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="jlP-Cc-p8I"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="VjK-ni-Xfv" firstAttribute="trailing" secondItem="i35-qo-Rq5" secondAttribute="trailing" constant="20" id="5VF-fc-aYf"/>
+                            <constraint firstItem="VjK-ni-Xfv" firstAttribute="bottom" secondItem="Ez3-Go-lhu" secondAttribute="bottom" constant="20" id="5mM-q5-yQD"/>
+                            <constraint firstItem="BIw-YP-QOj" firstAttribute="centerX" secondItem="JFt-mU-jCI" secondAttribute="centerX" id="7wf-Qk-2mU"/>
+                            <constraint firstItem="JFt-mU-jCI" firstAttribute="centerX" secondItem="uEm-i6-zEH" secondAttribute="centerX" id="CA1-U2-HQA"/>
+                            <constraint firstItem="BIw-YP-QOj" firstAttribute="top" secondItem="JFt-mU-jCI" secondAttribute="bottom" constant="24" id="OQR-u2-Th9"/>
+                            <constraint firstItem="i35-qo-Rq5" firstAttribute="height" secondItem="Ez3-Go-lhu" secondAttribute="height" id="Qim-bV-h3v"/>
+                            <constraint firstItem="JFt-mU-jCI" firstAttribute="centerY" secondItem="uEm-i6-zEH" secondAttribute="centerY" multiplier="0.5" id="Rpd-az-6fa"/>
+                            <constraint firstItem="i35-qo-Rq5" firstAttribute="leading" secondItem="Ez3-Go-lhu" secondAttribute="trailing" constant="20" id="l3p-RW-qkE"/>
+                            <constraint firstItem="JFt-mU-jCI" firstAttribute="width" secondItem="uEm-i6-zEH" secondAttribute="width" multiplier="0.8" id="pL0-Nx-rNT"/>
+                            <constraint firstItem="i35-qo-Rq5" firstAttribute="centerY" secondItem="Ez3-Go-lhu" secondAttribute="centerY" id="pUu-ey-igk"/>
+                            <constraint firstItem="Ez3-Go-lhu" firstAttribute="leading" secondItem="VjK-ni-Xfv" secondAttribute="leading" constant="20" id="ppG-sI-ewf"/>
+                            <constraint firstItem="BIw-YP-QOj" firstAttribute="width" secondItem="JFt-mU-jCI" secondAttribute="width" id="rdX-vu-hPt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VjK-ni-Xfv"/>
+                    </view>
+                    <connections>
+                        <outlet property="ipAddressTextfield" destination="JFt-mU-jCI" id="rPX-h3-0ZQ"/>
+                        <outlet property="portNumberTextfield" destination="BIw-YP-QOj" id="B69-qc-VFx"/>
+                        <outlet property="usernameTFBottomLayoutConstraint" destination="5mM-q5-yQD" id="jeE-qb-c0P"/>
+                        <outlet property="usernameTextField" destination="Ez3-Go-lhu" id="lDN-VV-w4H"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vGu-t5-qbD" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="128.18590704647679"/>
+        </scene>
+    </scenes>
+</document>
