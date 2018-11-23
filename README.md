@@ -2,6 +2,8 @@
 A highly incomplete chat app written in Swift using Network.framework (client) and Swift NIO (server-side)
 No 3-rd party libs used, this is a prototype of how chat funtionality is implemented using TCP sockets.
 
+![alt text](https://github.com/oleh-zayats/NWChat/blob/master/Screenshots/chat_screenshot.png)
+
 Disclaimer: might contain severe bugs (and the UI sucks) ;]
 
 ## Run this thing:
