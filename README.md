@@ -12,11 +12,11 @@ Disclaimer: might contain severe bugs (and the UI sucks) hehe ;]
 1. Clone/download repo
 
 2. Fetch dependencies and generate project: <br/>
-cd <…/<project directory>/NIOServer> <br/>
+cd <…/NIOServer> <br/>
 swift package generate-xcodeproj <br/>
 
 3. Run server <br/>
-$ cd <…/<project directory>/NIOServer/Sources> <br/>
+$ cd <…/NIOServer/Sources> <br/>
 $ open TCPServer.xcodeproj <br/>
 build and run ('command + R' or from terminal: ‘$ swift run TCPServer’) <br/>
 
@@ -24,7 +24,7 @@ Note: in case you want to kill the process blocking your port: <br/>
 $ lsof -t -i tcp:<port> | xargs kill (or '$ sudo lsof -t -i tcp: <port> | xargs kill')
 
 4. Run client: <br/>
-$ cd <…/<project directory>/Client> <br/>
+$ cd <…/Client> <br/>
 $ open NetworkFrameworkResearch.xcodeproj <br/>
 
 Command + R, fill host/port of the server
