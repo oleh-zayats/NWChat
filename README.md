@@ -5,8 +5,6 @@ No 3-rd party libs used, this is a prototype of how chat funtionality is impleme
 
 ![alt text](https://github.com/oleh-zayats/NWChat/blob/master/Screenshots/chat_screenshot.png)
 
-Disclaimer: might contain severe bugs (and the UI sucks) hehe ;]
-
 ## Run this thing:
 
 1. Clone/download repo
