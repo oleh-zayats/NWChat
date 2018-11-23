@@ -9,6 +9,7 @@
 import UIKit
 
 extension ChatMessageTableViewCell {
+    
     static var maxSize: CGSize {
         let width = UIScreen.main.bounds.size.width * 0.75
         let height = CGFloat.greatestFiniteMagnitude
@@ -18,13 +19,13 @@ extension ChatMessageTableViewCell {
     class func height(for message: ChatMessage, username: String) -> CGFloat {
         var nameHeight: CGFloat {
             if message.author != username {
-                return (height(forText: username, fontSize: TextSize.author, maxSize: ChatMessageTableViewCell.maxSize) + 4)
+                return (height(forText: username, fontSize: ChatMessageTableViewCell.FontSize.author, maxSize: ChatMessageTableViewCell.maxSize) + 4)
             }
             return 0
         }
         var messageHeight: CGFloat {
             let text = message.text
-            return height(forText: text, fontSize: TextSize.message, maxSize: ChatMessageTableViewCell.maxSize)
+            return height(forText: text, fontSize: ChatMessageTableViewCell.FontSize.message, maxSize: ChatMessageTableViewCell.maxSize)
         }
         let total = nameHeight + messageHeight + 24
         return total

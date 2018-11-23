@@ -8,35 +8,31 @@
 
 import UIKit
 
-final class ChatScreenViewController: KeyboardAppearanceHandlingVC, OSLogProviding {
+final class ChatScreenViewController: UIViewController, OSLogProviding {
     
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet weak var messageTextField: UITextField!
-    @IBOutlet weak var messageTFBottomLayoutConstraint: NSLayoutConstraint!
-
+    @IBOutlet private weak var messageTextField: UITextField!
+    
     private var messages: [ChatMessage] = []
     
     // MARK: - Injected
     var username: String!
     var chatService: ChatService!
-    
-    // MARK: - Overrides
-    override var reactingConstraint: NSLayoutConstraint? {
-        return messageTFBottomLayoutConstraint
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationTitle("Hi, \(username!)!")
         setupBackBarButtonItem()
+        messageTextField.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -8).isActive = true
+        messageTextField.returnKeyType = .send
+        messageTextField.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         chatService.enterChat(withUsername: username)
-        
         chatService.didReceiveChatMessage = { [weak self] message in
             self?.insert(message: message)
         }
@@ -52,6 +48,11 @@ final class ChatScreenViewController: KeyboardAppearanceHandlingVC, OSLogProvidi
     // MARK: - Actions
     
     @IBAction private func sendButtonDidTouchUpInside(_ sender: UIButton) {
+        sendMessageIfPossible()
+    }
+    
+    
+    private func sendMessageIfPossible() {
         guard let text = messageTextField.text?.blankSpaceTrimmed, text.isEmpty == false else { return }
         chatService.sendText(text)
         insert(message: ChatMessage(text: text, author: username, date: Date()))
@@ -109,5 +110,14 @@ extension ChatScreenViewController {
         chatScreenViewController.chatService = chatService
         chatScreenViewController.username = username
         return chatScreenViewController
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension ChatScreenViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        sendMessageIfPossible()
+        return true
     }
 }

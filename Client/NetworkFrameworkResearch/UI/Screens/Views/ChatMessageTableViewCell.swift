@@ -10,73 +10,94 @@ import UIKit
 
 final class ChatMessageTableViewCell: UITableViewCell {
     
-    enum LayoutType {
-        case info, incoming, outgoing
-    }
-    
-    private (set) var layoutType: LayoutType = .outgoing
-
-    enum TextSize {
-        static let author: CGFloat = 10
-        static let message: CGFloat = 17
-    }
-    
-    enum MessageColor {
-        static let outgoing = UIColor.iMessageBlue
-        static let incoming = UIColor.lightGray
-        static let informal = UIColor.darkGray
-    }
-    
-    final class MessageLabel: UILabel {
-        override func drawText(in rect: CGRect) {
-            super.drawText(in: rect.inset(by: .init(top: 5, left: 15, bottom: 5, right: 15)))
-        }
-    }
-    
-    lazy var messageLabel: MessageLabel = {
-        let label = MessageLabel()
-        label.clipsToBounds = true
-        label.textColor = .white
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    lazy var nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: TextSize.author)
-        label.textColor = .lightGray
-        label.numberOfLines = 1
-        return label
-    }()
+    private lazy var senderLabel = ChatMessageTableViewCell.makeMessageSenderLabel()
+    private lazy var messageLabel = ChatMessageTableViewCell.makeMessageBodyLabel()
+    private(set) var layout: ChatMessageTableViewCell.Layout = .outgoing
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        clipsToBounds = true
-        selectionStyle = .none
-        addSubview(messageLabel)
-        addSubview(nameLabel)
+        commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        clipsToBounds = true
+        selectionStyle = .none
+        addSubview(messageLabel)
+        addSubview(senderLabel)
     }
     
     @discardableResult
     func configured(with chatMessage: ChatMessage, username: String) -> ChatMessageTableViewCell {
-        layoutType = layout(fromMessage: chatMessage, username: username)
-        nameLabel.text = chatMessage.author
+        layout = layout(fromMessage: chatMessage, username: username)
+        senderLabel.text = chatMessage.author
         messageLabel.text = chatMessage.text
-        setNeedsLayout()
+        layoutSubviews()
         return self
     }
     
-    private func layout(fromMessage message: ChatMessage, username: String) -> ChatMessageTableViewCell.LayoutType {
+    private func layout(fromMessage message: ChatMessage, username: String) -> ChatMessageTableViewCell.Layout {
         if message.author.isEmpty {
             return .info
         } else if message.author == username {
             return .outgoing
         } else {
             return .incoming
+        }
+    }
+}
+
+// MARK: - Layout
+extension ChatMessageTableViewCell {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        switch layout {
+        case .info:
+            layoutInfoMessage()
+        case .incoming:
+            layoutUserMessage(incoming: true)
+        case .outgoing:
+            layoutUserMessage(incoming: false)
+        }
+        messageLabel.layer.cornerRadius = min(messageLabel.halfHeight, 20)
+    }
+    
+    private func layoutInfoMessage() {
+        let bestSize = messageLabel.sizeThatFits(ChatMessageTableViewCell.maxSize)
+        messageLabel.frame = CGRect(x: 0, y: 0, width: bestSize.width + 30, height: bestSize.height + 15)
+        messageLabel.center = centerPoint
+        messageLabel.backgroundColor = BubbleColor.informal
+        messageLabel.textColor = .white
+        messageLabel.textAlignment = .center
+        messageLabel.font = .systemFont(ofSize: FontSize.author)
+    }
+    
+    private func layoutUserMessage(incoming: Bool) {
+        let bestSize = messageLabel.sizeThatFits(ChatMessageTableViewCell.maxSize)
+        
+        messageLabel.frame = CGRect(x: 0, y: 0, width: bestSize.width + 30, height: bestSize.height + 15)
+        messageLabel.textColor = .white
+        messageLabel.font = .systemFont(ofSize: FontSize.message)
+        
+        if incoming {
+            senderLabel.sizeToFit()
+            senderLabel.isHidden = false
+            senderLabel.center = CGPoint(x: senderLabel.halfWidth + 20, y: senderLabel.halfHeight + 4)
+            
+            messageLabel.backgroundColor = BubbleColor.incoming
+            messageLabel.textAlignment = .right
+            messageLabel.center = CGPoint(x: messageLabel.halfWidth + 15, y: messageLabel.halfHeight + senderLabel.height + 6)
+            
+        } else {
+            messageLabel.textAlignment = .left
+            messageLabel.backgroundColor = BubbleColor.outgoing
+            messageLabel.center = CGPoint(x: width - messageLabel.halfWidth - 15, y: halfHeight)
+            senderLabel.isHidden = true
         }
     }
 }

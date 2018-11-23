@@ -38,7 +38,7 @@ extension ChatPeerHandler {
         let channel = ctx.channel
         socketQueue.async {
             if self.sockets.removeValue(forKey: ObjectIdentifier(channel)) != nil {
-                let message = "User with address \(channel.remoteAddress!) left chat"
+                let message = "User with address \(channel.remoteAddress?.description ?? "undefined") left chat"
                 self.writeToAll(channels: self.sockets, allocator: channel.allocator, message: message)
             }
         }

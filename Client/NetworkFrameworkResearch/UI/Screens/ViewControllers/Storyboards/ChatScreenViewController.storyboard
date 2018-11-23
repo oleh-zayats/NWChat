@@ -57,7 +57,6 @@
                         <viewLayoutGuide key="safeArea" id="Lv0-33-AHC"/>
                     </view>
                     <connections>
-                        <outlet property="messageTFBottomLayoutConstraint" destination="3o0-qq-tUu" id="MNq-uF-onl"/>
                         <outlet property="messageTextField" destination="3IW-IH-OiR" id="10f-my-12o"/>
                         <outlet property="tableView" destination="hpy-WW-1oS" id="mTn-w3-So3"/>
                     </connections>
